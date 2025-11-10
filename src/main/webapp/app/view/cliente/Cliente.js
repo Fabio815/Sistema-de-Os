@@ -1,6 +1,6 @@
 Ext.define('SistemaOs.view.cliente.Cliente', {
     extend: 'Ext.panel.Panel',
-    xtype: 'cadastro-cliente',
+	alias: 'widget.cadastro-cliente',
     
     title: 'Cadastro de Cliente',
     layout: 'fit',

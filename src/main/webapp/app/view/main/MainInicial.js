@@ -1,7 +1,29 @@
 Ext.define('SistemaOs.view.main.MainInicial', {
 	extend: 'Ext.container.Container',
     xtype: 'tela-inicial-panel',
-
+	
+	controller: {
+		opcaoSelecionada: function(tree, node) {
+			var me = this, vw = me.getView();
+			if (node) {
+				var panelCentral = me.lookupReference('painelCentral');
+				panelCentral.removeAll();
+				var n = node.get('id');
+				switch(n) {
+					case 'clientes':
+						panelCentral.add({xtype: 'cadastro-cliente'});
+						break;
+					case 'ordemServico':
+						panelCentral.add({xtype: 'listagem-os'});
+						break;
+					case 'estoque':
+						panelCentral.add({xtype: 'listagem-estoque'});
+						break;
+				}
+			}
+		}
+	},
+	
 	layout: 'border',
 	bodyBorder: false,
 	defaults: {
@@ -24,23 +46,26 @@ Ext.define('SistemaOs.view.main.MainInicial', {
                 root: {
                     expanded: true,
                     children: [{
-                        text: "Dashboard",
-                        iconCls: 'fa fa-home',
-                        leaf: true,
-                        id: 'dashboard'
-                    }, {
-                        text: "Ordem de Serviço",
-                        iconCls: 'fa fa-file-text',
-                        leaf: true,
-                        id: 'os'
-                    }, {
                         text: "Clientes",
                         iconCls: 'fa fa-users',
                         leaf: true,
-                        id: 'clientes'
-                    }]
+                        id: 'clientes',
+                    }, {
+						text: 'OS',
+						iconCls: 'fa fa-clipboard-list',
+						leaf: true,
+						id: 'ordemServico'
+					}, {
+						text: 'Estoque',
+						iconCls: 'fa fa-box',
+						leaf: true,
+						id: 'estoque'
+					}]
                 }
-            })
+            }),
+			listeners: {
+				selectionchange: 'opcaoSelecionada'
+			}
 		}]
 	}, {
 		xtype: 'toolbar',
@@ -60,6 +85,7 @@ Ext.define('SistemaOs.view.main.MainInicial', {
 	    collapsible: false,
 	    region: 'center',
 	    margins: '5 0 0 0',
-	    html: 'Principal'
+	    html: 'Principal',
+		reference: 'painelCentral'
 	}]
 });
