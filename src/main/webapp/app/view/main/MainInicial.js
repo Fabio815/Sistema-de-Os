@@ -6,12 +6,14 @@ Ext.define('SistemaOs.view.main.MainInicial', {
 		opcaoSelecionada: function(tree, node) {
 			var me = this, vw = me.getView();
 			if (node) {
-				var panelCentral = me.lookupReference('painelCentral');
+				//Ver esse painel central
+				var panelCentral = vw.down('panel[itemId=painelCentral]');
+				console.log(panelCentral);
 				panelCentral.removeAll();
 				var n = node.get('id');
 				switch(n) {
 					case 'clientes':
-						panelCentral.add({xtype: 'cadastro-cliente'});
+						panelCentral.add({xtype: 'listagem-cliente'});
 						break;
 					case 'ordemServico':
 						panelCentral.add({xtype: 'listagem-os'});
@@ -82,10 +84,11 @@ Ext.define('SistemaOs.view.main.MainInicial', {
 		border: false,
 	}, {
 	    title: 'Componente principal',
+		itemId: 'painelCentral',
 	    collapsible: false,
 	    region: 'center',
 	    margins: '5 0 0 0',
 	    html: 'Principal',
-		reference: 'painelCentral'
+		//reference: 'painelCentral'
 	}]
 });
