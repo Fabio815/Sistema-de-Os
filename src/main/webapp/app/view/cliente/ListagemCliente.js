@@ -1,6 +1,23 @@
 Ext.define('SistemaOs.view.cliente.ListagemCliente', {
 	extend: 'Ext.grid.Panel',
 	alias: 'widget.listagem-cliente',
+	requires: ['SistemaOs.model.ClienteModel'],
+	store: {
+		model: 'SistemaOs.model.ClienteModel',
+
+		proxy: {
+			type: 'ajax',
+			url: 'http://localhost:8080/sistema-os/api/cliente/listar',
+			actionMethods: {
+			    read: 'POST'
+			},
+			reader: {
+				type: 'json',
+				rootProperty: ''
+			}
+		},
+		autoLoad: true
+	},
 	
 	columns: [{
 		text: 'Id',
